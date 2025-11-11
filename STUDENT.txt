@@ -1,0 +1,14 @@
+APP_URL=https://your-story-app.netlify.app
+MAP_SERVICE_API_KEY=No API Key Required
+MAP_SERVICE_USED=OpenStreetMap (OSM), Esri ArcGIS Satellite, OpenTopoMap
+
+NOTES:
+- This application uses Leaflet.js for map functionality
+- Map tiles are provided by:
+  1. OpenStreetMap (no API key required)
+  2. Esri ArcGIS Satellite imagery (no API key required for basic usage)
+  3. OpenTopoMap (no API key required)
+- All map services used are free and don't require API keys
+- PWA features: Service Worker, Push Notifications, IndexedDB
+- Deployment: Netlify (replace APP_URL with actual deployment URL after deploying)
+
