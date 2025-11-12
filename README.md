@@ -277,3 +277,5 @@ This project is created for Dicoding Indonesia Submission.
 - OpenStreetMap, Esri, OpenTopoMap for free map tiles
 - Leaflet.js for excellent mapping library
 - Vite PWA Plugin team for simplifying PWA development
+
+LINK Deploy : https://story-app-project.netlify.app/

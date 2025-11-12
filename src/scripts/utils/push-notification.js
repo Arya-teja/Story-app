@@ -3,7 +3,7 @@ import CONFIG from "../config";
 // Helper function to convert ArrayBuffer to Base64
 function arrayBufferToBase64(buffer) {
   const bytes = new Uint8Array(buffer);
-  let binary = '';
+  let binary = "";
   for (let i = 0; i < bytes.byteLength; i++) {
     binary += String.fromCharCode(bytes[i]);
   }
@@ -81,20 +81,22 @@ class PushNotificationHelper {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           endpoint: subscription.endpoint,
           keys: {
-            p256dh: arrayBufferToBase64(subscription.getKey('p256dh')),
-            auth: arrayBufferToBase64(subscription.getKey('auth'))
-          }
+            p256dh: arrayBufferToBase64(subscription.getKey("p256dh")),
+            auth: arrayBufferToBase64(subscription.getKey("auth")),
+          },
         }),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || "Failed to send subscription to server");
+        throw new Error(
+          error.message || "Failed to send subscription to server"
+        );
       }
 
       // Simpan juga di localStorage sebagai backup
