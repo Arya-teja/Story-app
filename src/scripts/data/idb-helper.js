@@ -14,7 +14,9 @@ class IDBHelper {
           const favoriteStore = db.createObjectStore(FAVORITE_STORE, {
             keyPath: "id",
           });
-          favoriteStore.createIndex("createdAt", "createdAt", { unique: false });
+          favoriteStore.createIndex("createdAt", "createdAt", {
+            unique: false,
+          });
           favoriteStore.createIndex("name", "name", { unique: false });
         }
 
@@ -47,7 +49,7 @@ class IDBHelper {
     favorites.sort((a, b) => {
       const aValue = a[sortBy];
       const bValue = b[sortBy];
-      
+
       if (order === "asc") {
         return aValue > bValue ? 1 : -1;
       } else {
@@ -71,7 +73,7 @@ class IDBHelper {
   static async searchFavorites(query) {
     const favorites = await this.getFavorites();
     const lowerQuery = query.toLowerCase();
-    
+
     return favorites.filter(
       (story) =>
         story.name.toLowerCase().includes(lowerQuery) ||

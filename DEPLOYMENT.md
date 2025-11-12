@@ -1,6 +1,7 @@
 # Deployment Guide for Story App PWA
 
 ## Prerequisites
+
 - GitHub account
 - Netlify account (or Vercel/Firebase)
 
@@ -9,16 +10,19 @@
 ### Option 1: Deploy via Netlify CLI
 
 1. **Install Netlify CLI**
+
    ```bash
    npm install -g netlify-cli
    ```
 
 2. **Login to Netlify**
+
    ```bash
    netlify login
    ```
 
 3. **Build the project**
+
    ```bash
    npm run build
    ```
@@ -31,6 +35,7 @@
 ### Option 2: Deploy via Netlify Website (Recommended)
 
 1. **Push code to GitHub**
+
    ```bash
    git init
    git add .
@@ -41,6 +46,7 @@
    ```
 
 2. **Connect to Netlify**
+
    - Go to https://app.netlify.com/
    - Click "Add new site" → "Import an existing project"
    - Choose GitHub and select your repository
@@ -60,6 +66,7 @@
 ### Option 3: Deploy to Vercel
 
 1. **Install Vercel CLI**
+
    ```bash
    npm install -g vercel
    ```
@@ -72,19 +79,23 @@
 ### Option 4: Deploy to Firebase Hosting
 
 1. **Install Firebase CLI**
+
    ```bash
    npm install -g firebase-tools
    ```
 
 2. **Login to Firebase**
+
    ```bash
    firebase login
    ```
 
 3. **Initialize Firebase**
+
    ```bash
    firebase init hosting
    ```
+
    - Select your Firebase project
    - Set public directory to `dist`
    - Configure as single-page app: Yes
@@ -99,6 +110,7 @@
 ## Post-Deployment Checklist
 
 1. **Test PWA Features**
+
    - [ ] Open deployed URL in Chrome/Edge
    - [ ] Check if "Install App" prompt appears
    - [ ] Install the app
@@ -106,12 +118,14 @@
    - [ ] Test push notifications (enable in app)
 
 2. **Test Chrome DevTools → Application**
+
    - [ ] Manifest: No errors, all fields correct
    - [ ] Service Workers: Active and running
    - [ ] Storage → IndexedDB: Database created
    - [ ] Cache Storage: App shell cached
 
 3. **Test Lighthouse (PWA Audit)**
+
    - [ ] Open DevTools → Lighthouse
    - [ ] Select "Progressive Web App"
    - [ ] Run audit
@@ -124,21 +138,25 @@
 ## Troubleshooting
 
 ### Service Worker not registering
+
 - Check console for errors
 - Ensure `sw.js` is in the root of `dist` folder
 - Clear cache and hard reload (Ctrl+Shift+R)
 
 ### Push Notifications not working
+
 - Ensure HTTPS is enabled (Netlify provides this)
 - Check browser permissions
 - Test with simple test notification first
 
 ### App not installable
+
 - Check manifest.webmanifest is accessible
 - Ensure all required icons exist
 - Check for HTTPS
 
 ### Offline mode not working
+
 - Check Service Worker is active
 - Verify caching strategy in vite.config.js
 - Check Network tab in DevTools (switch to Offline)
@@ -146,6 +164,7 @@
 ## Testing Before Submission
 
 1. **Clean test on different device**
+
    - Use phone or different computer
    - Open deployed URL
    - Test all features
@@ -160,6 +179,7 @@
 ## Support
 
 If you encounter issues:
+
 - Check browser console for errors
 - Test in incognito mode
 - Clear all cache and try again

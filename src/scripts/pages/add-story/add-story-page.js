@@ -372,7 +372,7 @@ class AddStoryPage {
 
     try {
       const token = AuthUtils.getToken();
-      
+
       // Check if online
       if (!navigator.onLine) {
         // Save to IndexedDB for background sync
@@ -387,18 +387,20 @@ class AddStoryPage {
             lat,
             lon,
           });
-          
-          alert("You're offline. Story will be uploaded when you're back online!");
+
+          alert(
+            "You're offline. Story will be uploaded when you're back online!"
+          );
           window.location.hash = "#/";
         };
         reader.readAsDataURL(photo);
-        
+
         // Register background sync if supported
-        if ('serviceWorker' in navigator && 'sync' in navigator.serviceWorker) {
+        if ("serviceWorker" in navigator && "sync" in navigator.serviceWorker) {
           const registration = await navigator.serviceWorker.ready;
-          await registration.sync.register('sync-stories');
+          await registration.sync.register("sync-stories");
         }
-        
+
         return;
       }
 
@@ -415,7 +417,10 @@ class AddStoryPage {
       }
     } catch (error) {
       // If error is network-related, save to IndexedDB
-      if (error.message.includes("Network") || error.message.includes("fetch")) {
+      if (
+        error.message.includes("Network") ||
+        error.message.includes("fetch")
+      ) {
         const reader = new FileReader();
         reader.onload = async (e) => {
           const photoData = e.target.result;
@@ -427,15 +432,20 @@ class AddStoryPage {
             lat,
             lon,
           });
-          
-          alert("Network error. Story saved and will be uploaded when connection is restored!");
-          
+
+          alert(
+            "Network error. Story saved and will be uploaded when connection is restored!"
+          );
+
           // Register background sync
-          if ('serviceWorker' in navigator && 'sync' in navigator.serviceWorker) {
+          if (
+            "serviceWorker" in navigator &&
+            "sync" in navigator.serviceWorker
+          ) {
             const registration = await navigator.serviceWorker.ready;
-            await registration.sync.register('sync-stories');
+            await registration.sync.register("sync-stories");
           }
-          
+
           window.location.hash = "#/";
         };
         reader.readAsDataURL(photo);

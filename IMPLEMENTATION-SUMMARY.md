@@ -3,9 +3,11 @@
 ## ✅ Completed Features
 
 ### Kriteria 1: Mempertahankan Submission Sebelumnya (4 pts)
+
 ✅ **COMPLETED - ADVANCED**
 
 Semua kriteria submission pertama dipertahankan:
+
 - ✅ SPA dengan hash routing
 - ✅ View Transition API dengan custom animations
 - ✅ MVP architecture
@@ -16,6 +18,7 @@ Semua kriteria submission pertama dipertahankan:
 - ✅ Responsive design (375px, 768px, 1024px+)
 
 **Files:**
+
 - `src/scripts/pages/home/home-page.js` - Map & stories
 - `src/scripts/pages/add-story/add-story-page.js` - Add story form
 - `src/scripts/routes/` - SPA routing
@@ -24,28 +27,34 @@ Semua kriteria submission pertama dipertahankan:
 ---
 
 ### Kriteria 2: Push Notifications (4 pts)
+
 ✅ **COMPLETED - ADVANCED**
 
 **Basic (2 pts):**
+
 - ✅ Push notification tampil dari server via service worker
 - ✅ Trigger saat story baru ditambahkan
 
 **Skilled (3 pts):**
+
 - ✅ Notifikasi dinamis dengan data dari event
 - ✅ Custom title, icon, dan message dari push payload
 
 **Advanced (4 pts):**
+
 - ✅ Toggle button enable/disable notifications di home page
 - ✅ Action button di notifikasi untuk navigasi
 - ✅ Permission management & subscription handling
 
 **Files:**
+
 - `src/utils/push-notification.js` - Push notification helper
 - `src/public/sw.js` - Service worker dengan push event handler
 - `src/scripts/pages/home/home-page.js` - Toggle notification UI
 - `src/scripts/config.js` - VAPID public key
 
 **Testing:**
+
 1. Buka app di localhost:5173
 2. Login
 3. Click "🔔 Enable Notifications"
@@ -55,19 +64,23 @@ Semua kriteria submission pertama dipertahankan:
 ---
 
 ### Kriteria 3: PWA dengan Offline Support (4 pts)
+
 ✅ **COMPLETED - ADVANCED**
 
 **Basic (2 pts):**
+
 - ✅ Installable app (install prompt muncul)
 - ✅ Offline app shell tetap tampil
 
 **Skilled (3 pts):**
+
 - ✅ Screenshots di manifest (mobile & desktop)
 - ✅ Shortcuts di manifest (Add Story, View Stories)
 - ✅ No warnings di Chrome DevTools → Application → Manifest
 - ✅ Theme color & background color configured
 
 **Advanced (4 pts):**
+
 - ✅ Dynamic data caching (stories dari API)
 - ✅ Strategi caching appropriate:
   - NetworkFirst untuk API calls
@@ -75,6 +88,7 @@ Semua kriteria submission pertama dipertahankan:
 - ✅ Data tetap accessible saat offline
 
 **Files:**
+
 - `vite.config.js` - Vite PWA plugin configuration
 - `src/public/sw.js` - Custom service worker
 - `src/scripts/index.js` - SW registration
@@ -82,6 +96,7 @@ Semua kriteria submission pertama dipertahankan:
 - `src/public/images/screenshot-*.png` - Screenshots
 
 **Manifest Features:**
+
 - 8 icon sizes (72px - 512px)
 - 2 screenshots (mobile & desktop)
 - 2 shortcuts
@@ -89,6 +104,7 @@ Semua kriteria submission pertama dipertahankan:
 - Theme color: #2563eb
 
 **Testing:**
+
 1. Build: `npm run build`
 2. Preview: `npm run preview`
 3. Open DevTools → Application
@@ -97,41 +113,47 @@ Semua kriteria submission pertama dipertahankan:
 ---
 
 ### Kriteria 4: IndexedDB Implementation (4 pts)
+
 ✅ **COMPLETED - ADVANCED**
 
 **Basic (2 pts):**
+
 - ✅ Create: Add story to favorites
 - ✅ Read: View all favorites
 - ✅ Delete: Remove from favorites
 - ✅ Fitur accessible via navigation menu
 
 **Skilled (3 pts):**
+
 - ✅ Search/filter favorites by name/description
 - ✅ Sort by: createdAt, favoritedAt, name
 - ✅ Toggle sort order (ascending/descending)
 
 **Advanced (4 pts):**
+
 - ✅ Background Sync untuk offline stories
 - ✅ Simpan story baru saat offline ke IndexedDB
 - ✅ Auto-sync saat online kembali
 - ✅ Notification saat sync berhasil
 
 **Files:**
+
 - `src/scripts/data/idb-helper.js` - IndexedDB wrapper
 - `src/scripts/pages/favorites/favorites-page.js` - Favorites UI
 - `src/scripts/pages/add-story/add-story-page.js` - Offline story save
 - `src/public/sw.js` - Background sync handler
 
 **IndexedDB Stores:**
+
 1. `favorites` - Favorite stories
    - Key: `id`
    - Indexes: `createdAt`, `name`
-   
 2. `pending-stories` - Offline submissions
    - Key: `tempId` (auto-increment)
    - Index: `timestamp`
 
 **Testing:**
+
 1. Add favorites dari home page
 2. Go to Favorites page
 3. Test search, sort, delete
@@ -143,9 +165,11 @@ Semua kriteria submission pertama dipertahankan:
 ---
 
 ### Kriteria 5: Public Deployment (Required)
+
 ⏳ **READY TO DEPLOY**
 
 **Setup Completed:**
+
 - ✅ Build configuration
 - ✅ Netlify config (netlify.toml)
 - ✅ Service worker & manifest
@@ -153,12 +177,14 @@ Semua kriteria submission pertama dipertahankan:
 - ✅ STUDENT.txt prepared
 
 **Next Steps:**
+
 1. Push to GitHub
 2. Connect to Netlify
 3. Update STUDENT.txt with URL
 4. Test deployed version
 
 **Files:**
+
 - `netlify.toml` - Deployment config
 - `DEPLOYMENT.md` - Deployment guide
 - `STUDENT.txt` - URL placeholder
@@ -168,13 +194,13 @@ Semua kriteria submission pertama dipertahankan:
 
 ## 🎯 Point Calculation
 
-| Kriteria | Level | Points |
-|----------|-------|--------|
-| Kriteria 1: Mempertahankan | Advanced | 4/4 |
-| Kriteria 2: Push Notifications | Advanced | 4/4 |
-| Kriteria 3: PWA Offline | Advanced | 4/4 |
-| Kriteria 4: IndexedDB | Advanced | 4/4 |
-| Kriteria 5: Deployment | Pending | -/4 |
+| Kriteria                       | Level    | Points |
+| ------------------------------ | -------- | ------ |
+| Kriteria 1: Mempertahankan     | Advanced | 4/4    |
+| Kriteria 2: Push Notifications | Advanced | 4/4    |
+| Kriteria 3: PWA Offline        | Advanced | 4/4    |
+| Kriteria 4: IndexedDB          | Advanced | 4/4    |
+| Kriteria 5: Deployment         | Pending  | -/4    |
 
 **Current Total: 16/16 points (before deployment)**
 **Target: 20/20 points (after deployment)**
@@ -184,21 +210,25 @@ Semua kriteria submission pertama dipertahankan:
 ## 📁 New Files Created
 
 ### Core PWA Files:
+
 1. `src/scripts/data/idb-helper.js` - IndexedDB operations
 2. `src/utils/push-notification.js` - Push notification helper
 3. `src/scripts/pages/favorites/favorites-page.js` - Favorites page
 4. `src/public/sw.js` - Custom service worker
 
 ### Configuration:
+
 5. `vite.config.js` - Updated with Vite PWA plugin
 6. `netlify.toml` - Netlify deployment config
 7. `src/scripts/config.js` - Added VAPID key
 
 ### Assets:
+
 8. `src/public/images/icon-*.png` - 8 PWA icons
 9. `src/public/images/screenshot-*.png` - 2 screenshots
 
 ### Documentation:
+
 10. `README.md` - Complete documentation
 11. `DEPLOYMENT.md` - Deployment guide
 12. `ICONS-README.md` - Icon generation guide
@@ -226,24 +256,28 @@ Semua kriteria submission pertama dipertahankan:
 ## 🧪 Testing Checklist
 
 ### PWA Features:
+
 - [ ] Install prompt appears
 - [ ] App installs successfully
 - [ ] Icon appears on home screen
 - [ ] Standalone mode works
 
 ### Offline:
+
 - [ ] App shell loads offline
 - [ ] Cached stories visible offline
 - [ ] Can add story offline
 - [ ] Story syncs when online
 
 ### Push Notifications:
+
 - [ ] Permission request works
 - [ ] Toggle enable/disable works
 - [ ] Notification appears (test with dev tools)
 - [ ] Click notification navigates correctly
 
 ### IndexedDB:
+
 - [ ] Add to favorites works
 - [ ] Favorites page displays correctly
 - [ ] Search/filter works
@@ -253,12 +287,14 @@ Semua kriteria submission pertama dipertahankan:
 - [ ] Background sync works
 
 ### Accessibility:
+
 - [ ] Tab navigation works
 - [ ] Screen reader compatible
 - [ ] All images have alt text
 - [ ] Form labels associated
 
 ### Responsive:
+
 - [ ] Mobile (375px) looks good
 - [ ] Tablet (768px) looks good
 - [ ] Desktop (1024px+) looks good
@@ -268,6 +304,7 @@ Semua kriteria submission pertama dipertahankan:
 ## 🚀 Deployment Steps
 
 1. **Create GitHub Repository**
+
    ```bash
    git init
    git add .
@@ -278,6 +315,7 @@ Semua kriteria submission pertama dipertahankan:
    ```
 
 2. **Deploy to Netlify**
+
    - Go to netlify.com
    - New site from Git
    - Select repository
@@ -286,6 +324,7 @@ Semua kriteria submission pertama dipertahankan:
    - Deploy!
 
 3. **Update STUDENT.txt**
+
    - Copy Netlify URL
    - Update `APP_URL=https://your-app.netlify.app`
    - Commit & push
@@ -301,6 +340,7 @@ Semua kriteria submission pertama dipertahankan:
 ## 📊 Expected Scores
 
 ### Lighthouse PWA Audit:
+
 - Installable: ✅
 - PWA Optimized: ✅
 - Service Worker: ✅
@@ -309,6 +349,7 @@ Semua kriteria submission pertama dipertahankan:
 - Expected Score: **95-100**
 
 ### Submission Points:
+
 - **20/20 points** (All Advanced criteria met)
 
 ---
@@ -316,6 +357,7 @@ Semua kriteria submission pertama dipertahankan:
 ## 🎓 Learning Outcomes
 
 ### Technologies Mastered:
+
 ✅ Service Workers & caching strategies
 ✅ Web App Manifest configuration
 ✅ Push Notifications API
@@ -328,6 +370,7 @@ Semua kriteria submission pertama dipertahankan:
 ✅ Vite build optimization
 
 ### Best Practices Applied:
+
 ✅ Code organization & modularity
 ✅ Error handling
 ✅ User feedback & UX

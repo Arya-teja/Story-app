@@ -113,8 +113,9 @@ export default class HomePage {
 
     toggleBtn.addEventListener("click", async () => {
       try {
-        const currentStatus = await PushNotificationHelper.getSubscriptionStatus();
-        
+        const currentStatus =
+          await PushNotificationHelper.getSubscriptionStatus();
+
         if (currentStatus) {
           // Unsubscribe
           await PushNotificationHelper.unsubscribeFromPushNotifications();
@@ -123,15 +124,25 @@ export default class HomePage {
           alert("Push notifications disabled");
         } else {
           // Subscribe
-          const hasPermission = await PushNotificationHelper.requestPermission();
+          const hasPermission =
+            await PushNotificationHelper.requestPermission();
           if (hasPermission) {
-            const registration = await PushNotificationHelper.registerServiceWorker();
-            const subscription = await PushNotificationHelper.subscribeToPushNotifications(registration);
+            const registration =
+              await PushNotificationHelper.registerServiceWorker();
+            const subscription =
+              await PushNotificationHelper.subscribeToPushNotifications(
+                registration
+              );
             const token = AuthUtils.getToken();
-            await PushNotificationHelper.sendSubscriptionToServer(subscription, token);
+            await PushNotificationHelper.sendSubscriptionToServer(
+              subscription,
+              token
+            );
             localStorage.setItem("notificationsEnabled", "true");
             this._updateNotificationUI(true);
-            alert("Push notifications enabled! You'll be notified when new stories are added.");
+            alert(
+              "Push notifications enabled! You'll be notified when new stories are added."
+            );
           } else {
             alert("Please allow notifications in your browser settings");
           }
@@ -145,7 +156,9 @@ export default class HomePage {
   _updateNotificationUI(isEnabled) {
     const statusText = document.getElementById("notification-status");
     if (statusText) {
-      statusText.textContent = isEnabled ? "Disable Notifications" : "Enable Notifications";
+      statusText.textContent = isEnabled
+        ? "Disable Notifications"
+        : "Enable Notifications";
     }
   }
 
@@ -196,9 +209,9 @@ export default class HomePage {
     storiesListElement.innerHTML = this.stories
       .map(
         (story, index) => `
-      <article class="story-card" data-index="${index}" data-id="${story.id}" tabindex="0" role="listitem" aria-label="Story by ${
-          story.name
-        }">
+      <article class="story-card" data-index="${index}" data-id="${
+          story.id
+        }" tabindex="0" role="listitem" aria-label="Story by ${story.name}">
         <img src="${story.photoUrl}" alt="${
           story.description
         }" class="story-image" loading="lazy" />
@@ -221,7 +234,9 @@ export default class HomePage {
           `
               : ""
           }
-          <button class="btn-favorite" data-story='${JSON.stringify(story).replace(/'/g, "&apos;")}' aria-label="Add to favorites">
+          <button class="btn-favorite" data-story='${JSON.stringify(
+            story
+          ).replace(/'/g, "&apos;")}' aria-label="Add to favorites">
             ❤️ Favorite
           </button>
         </div>
@@ -232,7 +247,7 @@ export default class HomePage {
 
     // Add click handlers for list-map synchronization
     this._addStoryCardHandlers();
-    
+
     // Add favorite button handlers
     this._addFavoriteHandlers();
   }
@@ -423,22 +438,22 @@ export default class HomePage {
 
   _addFavoriteHandlers() {
     const favoriteBtns = document.querySelectorAll(".btn-favorite");
-    
+
     favoriteBtns.forEach((btn) => {
       btn.addEventListener("click", async (e) => {
         e.stopPropagation();
         const storyData = JSON.parse(btn.dataset.story.replace(/&apos;/g, "'"));
-        
+
         try {
           const isFav = await IDBHelper.isFavorite(storyData.id);
-          
+
           if (isFav) {
             alert("This story is already in your favorites!");
           } else {
             await IDBHelper.addFavorite(storyData);
             btn.textContent = "✅ Favorited";
             btn.disabled = true;
-            
+
             // Show success message
             setTimeout(() => {
               btn.textContent = "❤️ Favorite";

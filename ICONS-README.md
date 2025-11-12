@@ -23,16 +23,20 @@ Create the following PNG screenshots in `src/public/images/`:
 ## Quick Generation
 
 ### Option 1: Use Online Tools
+
 - Icons: https://realfavicongenerator.net/
 - Or: https://www.pwabuilder.com/imageGenerator
 
 ### Option 2: Use Logo.png
+
 If you have a logo.png file, you can use it as base and resize to different sizes using ImageMagick or online tools.
 
 ### Option 3: Use Favicon
+
 Convert your existing favicon.png to different sizes.
 
 ## For Now (Development)
+
 You can copy favicon.png to each icon size temporarily:
 
 ```bash
@@ -44,11 +48,14 @@ foreach ($size in $sizes) {
 ```
 
 ## Screenshots
+
 Take actual screenshots of your app:
+
 1. Open your app in browser
 2. For mobile: Open DevTools, toggle device toolbar, select iPhone or similar
 3. Take screenshot (F12 → Ctrl+Shift+P → "Capture screenshot")
 4. For desktop: Take full page screenshot at 1920x1080
 
 ## After Creating Icons
+
 The vite.config.js is already configured to use these icons.

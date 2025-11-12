@@ -80,7 +80,10 @@ export default class FavoritesPage {
     listElement.innerHTML = '<div class="loading">Loading favorites...</div>';
 
     try {
-      this.favorites = await IDBHelper.getFavorites(this.sortBy, this.sortOrder);
+      this.favorites = await IDBHelper.getFavorites(
+        this.sortBy,
+        this.sortOrder
+      );
       this.filteredFavorites = this.favorites;
       this._renderFavorites();
     } catch (error) {
@@ -105,7 +108,9 @@ export default class FavoritesPage {
       .map(
         (story) => `
       <article class="favorite-card" data-id="${story.id}" role="listitem">
-        <img src="${story.photoUrl}" alt="${story.description}" class="favorite-image" loading="lazy" />
+        <img src="${story.photoUrl}" alt="${
+          story.description
+        }" class="favorite-image" loading="lazy" />
         <div class="favorite-content">
           <h3 class="favorite-author">${story.name}</h3>
           <p class="favorite-description">${story.description}</p>
@@ -122,7 +127,9 @@ export default class FavoritesPage {
               : ""
           }
           <div class="favorite-actions">
-            <button class="btn-remove-favorite" data-id="${story.id}" aria-label="Remove from favorites">
+            <button class="btn-remove-favorite" data-id="${
+              story.id
+            }" aria-label="Remove from favorites">
               ❤️ Remove Favorite
             </button>
           </div>
@@ -176,7 +183,7 @@ export default class FavoritesPage {
     // Sort order
     sortOrderBtn.addEventListener("click", async () => {
       this.sortOrder = this.sortOrder === "asc" ? "desc" : "asc";
-      document.getElementById("sort-icon").textContent = 
+      document.getElementById("sort-icon").textContent =
         this.sortOrder === "asc" ? "↑" : "↓";
       await this._loadFavorites();
     });

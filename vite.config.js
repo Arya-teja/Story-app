@@ -22,7 +22,8 @@ export default defineConfig({
       manifest: {
         name: "Story App - Share Your Stories",
         short_name: "Story App",
-        description: "Share your stories with the world and explore stories from others",
+        description:
+          "Share your stories with the world and explore stories from others",
         theme_color: "#2563eb",
         background_color: "#ffffff",
         display: "standalone",
@@ -34,49 +35,61 @@ export default defineConfig({
             src: "/images/icon-72x72.png",
             sizes: "72x72",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
           },
           {
             src: "/images/icon-96x96.png",
             sizes: "96x96",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
           },
           {
             src: "/images/icon-128x128.png",
             sizes: "128x128",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
           },
           {
             src: "/images/icon-144x144.png",
             sizes: "144x144",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
           },
           {
             src: "/images/icon-152x152.png",
             sizes: "152x152",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
           },
           {
             src: "/images/icon-192x192.png",
             sizes: "192x192",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
+          },
+          {
+            src: "/images/icon-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable"
           },
           {
             src: "/images/icon-384x384.png",
             sizes: "384x384",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
           },
           {
             src: "/images/icon-512x512.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "any maskable"
+            purpose: "any"
+          },
+          {
+            src: "/images/icon-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable"
           }
         ],
         screenshots: [
@@ -84,14 +97,14 @@ export default defineConfig({
             src: "/images/screenshot-mobile.png",
             sizes: "375x812",
             type: "image/png",
-            form_factor: "narrow"
+            form_factor: "narrow",
           },
           {
             src: "/images/screenshot-desktop.png",
             sizes: "1920x1080",
             type: "image/png",
-            form_factor: "wide"
-          }
+            form_factor: "wide",
+          },
         ],
         shortcuts: [
           {
@@ -99,16 +112,16 @@ export default defineConfig({
             short_name: "Add",
             description: "Add a new story",
             url: "/#/add-story",
-            icons: [{ src: "/images/icon-192x192.png", sizes: "192x192" }]
+            icons: [{ src: "/images/icon-192x192.png", sizes: "192x192" }],
           },
           {
             name: "View Stories",
             short_name: "Stories",
             description: "View all stories",
             url: "/#/",
-            icons: [{ src: "/images/icon-192x192.png", sizes: "192x192" }]
-          }
-        ]
+            icons: [{ src: "/images/icon-192x192.png", sizes: "192x192" }],
+          },
+        ],
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,jpeg}"],
@@ -120,12 +133,12 @@ export default defineConfig({
               cacheName: "api-cache",
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 // 24 hours
+                maxAgeSeconds: 60 * 60 * 24, // 24 hours
               },
               cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
+                statuses: [0, 200],
+              },
+            },
           },
           {
             urlPattern: /^https:\/\/.*\.tile\.openstreetmap\.org\/.*/i,
@@ -134,9 +147,9 @@ export default defineConfig({
               cacheName: "map-tiles-cache",
               expiration: {
                 maxEntries: 500,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              }
-            }
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+            },
           },
           {
             urlPattern: /^https:\/\/server\.arcgisonline\.com\/.*/i,
@@ -145,9 +158,9 @@ export default defineConfig({
               cacheName: "satellite-tiles-cache",
               expiration: {
                 maxEntries: 500,
-                maxAgeSeconds: 60 * 60 * 24 * 30
-              }
-            }
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+            },
           },
           {
             urlPattern: /^https:\/\/.*\.opentopomap\.org\/.*/i,
@@ -156,15 +169,15 @@ export default defineConfig({
               cacheName: "topo-tiles-cache",
               expiration: {
                 maxEntries: 500,
-                maxAgeSeconds: 60 * 60 * 24 * 30
-              }
-            }
-          }
-        ]
+                maxAgeSeconds: 60 * 60 * 24 * 30,
+              },
+            },
+          },
+        ],
       },
       devOptions: {
-        enabled: true
-      }
-    })
-  ]
+        enabled: true,
+      },
+    }),
+  ],
 });

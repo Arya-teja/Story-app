@@ -5,22 +5,25 @@ A modern Progressive Web Application for sharing stories with the world. Built w
 ## ✨ Features
 
 ### Kriteria 1: SPA & Custom View Transitions ✅
+
 - Single Page Application dengan hash routing
 - Custom View Transition API animations (slide-in/slide-out)
 - MVP architecture pattern
 - Smooth page transitions without reload
 
 ### Kriteria 2: Push Notifications (Advanced) ✅
+
 - ✅ Basic: Push notification dari server saat story baru ditambahkan
 - ✅ Skilled: Notifikasi dinamis dengan data dari event
-- ✅ Advanced: 
+- ✅ Advanced:
   - Toggle button untuk enable/disable notifications
   - Action button untuk navigasi ke detail story
   - Custom notification title, icon, dan message
 
 ### Kriteria 3: PWA dengan Offline Support (Advanced) ✅
+
 - ✅ Basic: Installable app dengan offline app shell
-- ✅ Skilled: 
+- ✅ Skilled:
   - Screenshots di manifest
   - Shortcuts di manifest
   - No warnings di Chrome DevTools
@@ -30,6 +33,7 @@ A modern Progressive Web Application for sharing stories with the world. Built w
   - Konten tetap accessible saat offline
 
 ### Kriteria 4: IndexedDB Implementation (Advanced) ✅
+
 - ✅ Basic: CRUD operations untuk Favorites
   - Create: Add story to favorites
   - Read: View all favorites
@@ -44,6 +48,7 @@ A modern Progressive Web Application for sharing stories with the world. Built w
   - Notifikasi saat sync berhasil
 
 ### Kriteria 5: Public Deployment ✅
+
 - Deployed di Netlify/Vercel/Firebase
 - URL tersedia di STUDENT.txt
 
@@ -79,6 +84,7 @@ npm run preview
 ## 🗺️ Map Services
 
 This app uses multiple free tile layers:
+
 - OpenStreetMap (Street view)
 - Esri ArcGIS Satellite (Satellite view)
 - OpenTopoMap (Topographic view)
@@ -88,6 +94,7 @@ This app uses multiple free tile layers:
 ## 📱 PWA Features
 
 ### Service Worker
+
 - Precache app shell
 - Runtime caching for API responses
 - Map tiles caching
@@ -95,6 +102,7 @@ This app uses multiple free tile layers:
 - Background sync for offline stories
 
 ### Web App Manifest
+
 - Multiple icon sizes (72px - 512px)
 - Screenshots (mobile & desktop)
 - Shortcuts to Add Story and View Stories
@@ -102,6 +110,7 @@ This app uses multiple free tile layers:
 - Theme color & background color
 
 ### IndexedDB
+
 - `favorites` store: For saving favorite stories
 - `pending-stories` store: For offline story submissions
 - Automatic schema versioning
@@ -119,6 +128,7 @@ This app uses multiple free tile layers:
 ## 📖 Usage Guide
 
 ### Adding a Story
+
 1. Click "+ Add Story" button
 2. Fill in description
 3. Choose photo (from file or camera)
@@ -126,6 +136,7 @@ This app uses multiple free tile layers:
 5. Submit - works offline too!
 
 ### Favorites
+
 1. Browse stories on home page
 2. Click "❤️ Favorite" button
 3. View all favorites via navigation menu
@@ -133,6 +144,7 @@ This app uses multiple free tile layers:
 5. Remove from favorites anytime
 
 ### Offline Mode
+
 1. Browse app while online first
 2. Disconnect internet
 3. App shell still loads
@@ -178,18 +190,22 @@ starter-project-with-vite/
 ## 🧪 Testing
 
 ### Manual Testing
+
 1. **PWA Installability**
+
    - Open in Chrome/Edge
    - Check for install prompt
    - Install and verify icon appears
 
 2. **Offline Functionality**
+
    - Load app while online
    - Open DevTools → Network → Offline
    - Navigate between pages
    - Verify cached content loads
 
 3. **Push Notifications**
+
    - Enable notifications
    - Add a new story
    - Check notification appears
@@ -202,6 +218,7 @@ starter-project-with-vite/
    - Test search/filter/sort
 
 ### Lighthouse Audit
+
 ```bash
 # Run Lighthouse in Chrome DevTools
 1. Open DevTools (F12)
@@ -216,6 +233,7 @@ starter-project-with-vite/
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment instructions.
 
 Quick deploy to Netlify:
+
 ```bash
 npm run build
 netlify deploy --prod --dir=dist
@@ -226,6 +244,7 @@ netlify deploy --prod --dir=dist
 Uses Dicoding Story API: `https://story-api.dicoding.dev/v1`
 
 Endpoints:
+
 - `POST /register` - Register new user
 - `POST /login` - Login user
 - `GET /stories?location=1` - Get all stories with location

@@ -1,5 +1,15 @@
 import CONFIG from "../config";
 
+// Helper function to convert ArrayBuffer to Base64
+function arrayBufferToBase64(buffer) {
+  const bytes = new Uint8Array(buffer);
+  let binary = '';
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
+}
+
 class PushNotificationHelper {
   static async requestPermission() {
     if (!("Notification" in window)) {
@@ -26,7 +36,9 @@ class PushNotificationHelper {
     try {
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: this.urlBase64ToUint8Array(CONFIG.VAPID_PUBLIC_KEY),
+        applicationServerKey: this.urlBase64ToUint8Array(
+          CONFIG.VAPID_PUBLIC_KEY
+        ),
       });
 
       return subscription;
@@ -64,7 +76,28 @@ class PushNotificationHelper {
 
   static async sendSubscriptionToServer(subscription, token) {
     try {
-      // Store subscription in localStorage for this demo
+      // Kirim subscription ke API Story Dicoding
+      const response = await fetch(`${CONFIG.BASE_URL}/stories/push`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          endpoint: subscription.endpoint,
+          keys: {
+            p256dh: arrayBufferToBase64(subscription.getKey('p256dh')),
+            auth: arrayBufferToBase64(subscription.getKey('auth'))
+          }
+        }),
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || "Failed to send subscription to server");
+      }
+
+      // Simpan juga di localStorage sebagai backup
       localStorage.setItem("pushSubscription", JSON.stringify(subscription));
       return true;
     } catch (error) {
@@ -99,7 +132,9 @@ class PushNotificationHelper {
         const hasPermission = await this.requestPermission();
         if (hasPermission) {
           const registration = await this.registerServiceWorker();
-          const subscription = await this.subscribeToPushNotifications(registration);
+          const subscription = await this.subscribeToPushNotifications(
+            registration
+          );
           const token = localStorage.getItem("authToken");
           await this.sendSubscriptionToServer(subscription, token);
         }
