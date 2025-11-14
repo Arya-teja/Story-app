@@ -13,27 +13,37 @@ if ("serviceWorker" in navigator) {
       const updateSW = registerSW({
         immediate: true,
         onNeedRefresh() {
-          if (confirm("New content available. Reload to update?")) {
+          if (confirm("Ada update baru. Reload sekarang?")) {
             updateSW(true);
           }
         },
         onOfflineReady() {
-          console.log("App ready to work offline");
+          console.log("App siap bekerja offline");
         },
       });
 
-      // Also register custom service worker for push notifications
-      const registration = await navigator.serviceWorker.register("/sw.js", {
-        scope: "/",
-      });
+      // Get service worker registration for push notifications
+      const registration = await navigator.serviceWorker.ready;
 
       console.log(
         "Service Worker registered successfully:",
         registration.scope
       );
 
-      // Initialize push notifications if user previously enabled
-      await PushNotificationHelper.initializePushNotifications();
+      // Debug: Check notification support
+      console.log("Notification permission:", Notification.permission);
+      console.log("Push supported:", "PushManager" in window);
+
+      // Check if user previously subscribed
+      const isSubscribed =
+        await PushNotificationHelper.isCurrentPushSubscriptionAvailable();
+      if (isSubscribed) {
+        console.log("User is already subscribed to push notifications");
+      } else {
+        console.log(
+          "User not subscribed. Click Subscribe button to enable notifications"
+        );
+      }
 
       // Listen for messages from service worker
       navigator.serviceWorker.addEventListener("message", (event) => {

@@ -50,8 +50,11 @@ export default class HomePage {
           </div>
           <div class="home-actions">
             <button id="notification-toggle" class="btn btn-secondary" aria-label="Toggle push notifications">
-              🔔 <span id="notification-status">Enable Notifications</span>
+              🔔 <span id="notification-status">Subscribe</span>
             </button>
+            <a href="#/notify" class="btn btn-secondary" aria-label="Try push notification demo">
+              🔔 Try Notify Me
+            </a>
             <a href="#/add-story" class="btn btn-primary" aria-label="Add new story">
               + Add Story
             </a>
@@ -108,57 +111,43 @@ export default class HomePage {
     if (!toggleBtn || !statusText) return;
 
     // Check current subscription status
-    const isSubscribed = await PushNotificationHelper.getSubscriptionStatus();
-    this._updateNotificationUI(isSubscribed);
+    await this._setupPushNotification();
+  }
 
-    toggleBtn.addEventListener("click", async () => {
-      try {
-        const currentStatus =
-          await PushNotificationHelper.getSubscriptionStatus();
+  async _setupPushNotification() {
+    const toggleBtn = document.getElementById("notification-toggle");
+    const statusText = document.getElementById("notification-status");
 
-        if (currentStatus) {
-          // Unsubscribe
-          await PushNotificationHelper.unsubscribeFromPushNotifications();
-          localStorage.setItem("notificationsEnabled", "false");
-          this._updateNotificationUI(false);
-          alert("Push notifications disabled");
-        } else {
-          // Subscribe
-          const hasPermission =
-            await PushNotificationHelper.requestPermission();
-          if (hasPermission) {
-            const registration =
-              await PushNotificationHelper.registerServiceWorker();
-            const subscription =
-              await PushNotificationHelper.subscribeToPushNotifications(
-                registration
-              );
-            const token = AuthUtils.getToken();
-            await PushNotificationHelper.sendSubscriptionToServer(
-              subscription,
-              token
-            );
-            localStorage.setItem("notificationsEnabled", "true");
-            this._updateNotificationUI(true);
-            alert(
-              "Push notifications enabled! You'll be notified when new stories are added."
-            );
-          } else {
-            alert("Please allow notifications in your browser settings");
-          }
+    if (!toggleBtn || !statusText) return;
+
+    const isSubscribed =
+      await PushNotificationHelper.isCurrentPushSubscriptionAvailable();
+
+    if (isSubscribed) {
+      // Show unsubscribe button
+      statusText.textContent = "Unsubscribe";
+      toggleBtn.onclick = async () => {
+        const success = await PushNotificationHelper.unsubscribe();
+        if (success) {
+          await this._setupPushNotification();
         }
-      } catch (error) {
-        alert("Failed to toggle notifications: " + error.message);
-      }
-    });
+      };
+    } else {
+      // Show subscribe button
+      statusText.textContent = "Subscribe";
+      toggleBtn.onclick = async () => {
+        const subscription = await PushNotificationHelper.subscribe();
+        if (subscription) {
+          await this._setupPushNotification();
+        }
+      };
+    }
   }
 
   _updateNotificationUI(isEnabled) {
     const statusText = document.getElementById("notification-status");
     if (statusText) {
-      statusText.textContent = isEnabled
-        ? "Disable Notifications"
-        : "Enable Notifications";
+      statusText.textContent = isEnabled ? "Unsubscribe" : "Subscribe";
     }
   }
 

@@ -1,6 +1,7 @@
 import StoryAPI from "../../data/api";
 import IDBHelper from "../../data/idb-helper";
 import { AuthUtils, ValidationUtils } from "../../utils/index";
+import PushNotificationHelper from "../../utils/push-notification";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -411,11 +412,32 @@ class AddStoryPage {
         lon,
       });
 
+      console.log("[AddStory] Result from API:", result);
+
       if (result.error === false) {
+        // Story berhasil ditambahkan
+        // Response structure bisa berupa result.data.storyId atau langsung dari result
+        const storyId =
+          result.data?.storyId ||
+          result.data?.id ||
+          result.storyId ||
+          result.id;
+        console.log("[AddStory] Story added successfully, ID:", storyId);
+
+        // Selalu kirim notifikasi lokal setelah story berhasil ditambahkan
+        console.log("[AddStory] Sending local notification...");
+        this._sendLocalNotification().catch((err) =>
+          console.error("[AddStory] Failed to send notification:", err)
+        );
+
         alert("Story added successfully!");
         window.location.hash = "#/";
+      } else {
+        console.error("[AddStory] API returned error:", result);
+        alert(`Failed to add story: ${result.message || "Unknown error"}`);
       }
     } catch (error) {
+      console.error("[AddStory] Exception occurred:", error);
       // If error is network-related, save to IndexedDB
       if (
         error.message.includes("Network") ||
@@ -457,6 +479,41 @@ class AddStoryPage {
     } finally {
       // Clean up camera if still open
       this._closeCamera();
+    }
+  }
+
+  async _sendLocalNotification() {
+    console.log("[AddStory] Sending local notification...");
+
+    try {
+      console.log(
+        "[AddStory] Calling PushNotificationHelper.notifyNewStory..."
+      );
+      const result = await PushNotificationHelper.notifyNewStory("new-story");
+      console.log("[AddStory] Notification result:", result);
+      console.log("[AddStory] Local notification sent successfully");
+    } catch (error) {
+      console.error("[AddStory] Error sending notification:", error);
+    }
+  }
+
+  async _notifyAllUsers(storyId) {
+    console.log("[AddStory] _notifyAllUsers called with storyId:", storyId);
+
+    if (!storyId) {
+      console.warn("[AddStory] No storyId provided, skipping notification");
+      return;
+    }
+
+    try {
+      console.log(
+        "[AddStory] Calling PushNotificationHelper.notifyNewStory..."
+      );
+      const result = await PushNotificationHelper.notifyNewStory(storyId);
+      console.log("[AddStory] Notification result:", result);
+      console.log("[AddStory] Notification sent to all subscribers");
+    } catch (error) {
+      console.error("[AddStory] Error notifying users:", error);
     }
   }
 }

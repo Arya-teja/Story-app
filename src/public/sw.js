@@ -1,37 +1,43 @@
 /* eslint-disable no-restricted-globals */
 /// <reference lib="webworker" />
+import { precacheAndRoute } from 'workbox-precaching';
+import { registerRoute } from 'workbox-routing';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { NetworkFirst, CacheFirst, StaleWhileRevalidate } from 'workbox-strategies';
 
-// Service Worker untuk Push Notifications dan Background Sync
+// Do precaching
+precacheAndRoute(self.__WB_MANIFEST);
 
-const CACHE_NAME = "story-app-v1";
-const API_CACHE = "story-api-cache-v1";
+// Runtime caching for Story API
+registerRoute(
+  ({ request, url }) => {
+    return url.origin === 'https://story-api.dicoding.dev' && request.destination !== 'image';
+  },
+  new NetworkFirst({
+    cacheName: 'story-api-cache',
+  }),
+);
 
-// Install event
-self.addEventListener("install", (event) => {
-  console.log("[SW] Installing Service Worker...");
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("[SW] Precaching App Shell");
-      return cache.addAll(["/", "/index.html", "/manifest.webmanifest"]);
-    })
-  );
-  self.skipWaiting();
-});
+registerRoute(
+  ({ request, url }) => {
+    return url.origin === 'https://story-api.dicoding.dev' && request.destination === 'image';
+  },
+  new StaleWhileRevalidate({
+    cacheName: 'story-api-images',
+  }),
+);
 
-// Activate event
-self.addEventListener("activate", (event) => {
-  console.log("[SW] Activating Service Worker...");
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME && name !== API_CACHE)
-          .map((name) => caches.delete(name))
-      );
-    })
-  );
-  self.clients.claim();
-});
+// Cache map tiles
+registerRoute(
+  ({ url }) => {
+    return url.origin === 'https://tile.openstreetmap.org' || 
+           url.origin === 'https://server.arcgisonline.com' || 
+           url.origin.includes('opentopomap');
+  },
+  new CacheFirst({
+    cacheName: 'map-tiles-cache',
+  }),
+);
 
 // Push notification event
 self.addEventListener("push", (event) => {

@@ -1,8 +1,9 @@
 const CONFIG = {
   BASE_URL: "https://story-api.dicoding.dev/v1",
   CACHE_NAME: "StoryApp-v1",
+  // VAPID Public Key dari dokumentasi Story API Dicoding
   VAPID_PUBLIC_KEY:
-    "BN7-r0Svv7CzLhW7kI6y5Kdj8agI9llJVthVW3pvL1KX4Cxz1DPiPdownRuT9cf3xLHjdHYuMHYA8cOydb35gSgZo",
+    "BCCs2eonMI-6H2ctvFaWg-UYdDv387Vno_bzUzALpB442r2lCnsHmtrx8biyPi_E-1fSGABK_Qs_GlvPoJJqxbk",
 };
 
 export default CONFIG;

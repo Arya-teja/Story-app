@@ -30,6 +30,9 @@ class StoryAPI {
 
   static async login({ email, password }) {
     try {
+      console.log("[API] Attempting login to:", `${CONFIG.BASE_URL}/login`);
+      console.log("[API] Online status:", navigator.onLine);
+
       const response = await fetch(`${CONFIG.BASE_URL}/login`, {
         method: "POST",
         headers: {
@@ -38,17 +41,24 @@ class StoryAPI {
         body: JSON.stringify({ email, password }),
       });
 
+      console.log("[API] Response status:", response.status);
+
       if (!response.ok) {
         const data = await response.json();
         throw new Error(data.message || "Failed to login");
       }
 
       const data = await response.json();
+      console.log("[API] Login successful");
       return data;
     } catch (error) {
-      if (error instanceof TypeError) {
+      console.error("[API] Login error:", error);
+      if (
+        error instanceof TypeError ||
+        error.message.includes("Failed to fetch")
+      ) {
         throw new Error(
-          "Network error. Please check your internet connection."
+          "Tidak dapat terhubung ke server. Pastikan Anda online dan server dapat diakses."
         );
       }
       throw error;
@@ -75,9 +85,12 @@ class StoryAPI {
       const data = await response.json();
       return data;
     } catch (error) {
-      if (error instanceof TypeError) {
+      if (
+        error instanceof TypeError ||
+        error.message.includes("Failed to fetch")
+      ) {
         throw new Error(
-          "Network error. Please check your internet connection."
+          "Tidak dapat mengambil data stories. Pastikan Anda online."
         );
       }
       throw error;
